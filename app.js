@@ -4,12 +4,18 @@ const cors = require("cors");
 
 // middleware
 app.use(cors());
+app.use(exppress.json());
 
 
 
 // routes
-app.use((req, res, next) => {
-  res.end("i am the second route");
+app.post("/api/auth/signup", (req, res) => {
+})
+app.post("/api/auth/login", (req, res) => {
+})
+
+
+app.get("/api", (req, res) => {
 });
 
 // exportation du module
