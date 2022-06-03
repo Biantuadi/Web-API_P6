@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jsonwebtoken = require("jsonwebtoken");
 
 exports.signup = (req, res, next) => {
   bcrypt
@@ -33,7 +34,10 @@ exports.login = (req, res, next) => {
                 if(!valid){
                     res.status(401).json({error: "Mot de passe incorrect",});
                 } else {
-                    res.status(200).json({userId: user._id, token: "toto"});
+                    res.status(200).json({
+                        userId: user._id, 
+                        token: jsonwebtoken.sign({userId: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}),
+                    });
                 }
             })
             .catch((err) => res.status(500).json({ error: err }));
