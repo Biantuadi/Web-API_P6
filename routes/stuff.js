@@ -2,13 +2,11 @@ const express = require("express");
 const router = express.Router();
 const stuffController = require("../controllers/stuff");
 
-// post and get users
-router.post("auth/signup", );
-router.post("auth/login", );
+
 
 // post and get sauces
-router.post("sauces", stuffController.postSauce); 
-router.get("sauces:id",  stuffController.getSauce);
+router.post("/", stuffController.postSauce); 
+router.get("/:id",  stuffController.getSauce);
 
 
 // update and delete sauces
@@ -17,6 +15,6 @@ router.get("sauces:id",  stuffController.getSauce);
 
 
 // get all sauces
-router.get("sauces", stuffController.getAllSauces);
+router.get("/", stuffController.getAllSauces);
 
 module.exports = router;

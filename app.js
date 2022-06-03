@@ -3,6 +3,7 @@ const app = exppress();
 const cors = require("cors");
 
 const stuffRouter = require("./routes/stuff");
+const userRouter = require("./routes/user");
 
 // middleware
 app.use(cors());
@@ -19,7 +20,8 @@ mongooose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }
 
 
 // routes
-app.use("/api/stuff", stuffRouter);
+app.use("/api/sauces", stuffRouter);
+app.use("/api/auth", userRouter);
 
 
 // exportation du module
