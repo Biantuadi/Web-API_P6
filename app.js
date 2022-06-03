@@ -1,10 +1,16 @@
-const exppress = require('express');
-const res = require('express/lib/response');
+const exppress = require("express");
 const app = exppress();
+const cors = require("cors");
 
-app.use((req,res)=>{
-    res.end("Hello World");
-})
+// middleware
+app.use(cors());
+
+
+
+// routes
+app.use((req, res, next) => {
+  res.end("i am the second route");
+});
 
 // exportation du module
 module.exports = app;
