@@ -6,6 +6,13 @@ const cors = require("cors");
 app.use(cors());
 app.use(exppress.json());
 
+// connection à la base de données CE4MFtZ4kiF1JTH5
+const mongooose = require("mongoose");
+const mongoURI = "mongodb+srv://kevin:CE4MFtZ4kiF1JTH5@cluster0.y0gnr7k.mongodb.net/?retryWrites=true&w=majority";
+mongooose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } )
+    .then(() => console.log("Connexion à la base de données réussie !"))
+    .catch(err => console.log("Erreur de connexion à la base de données : ", err));
+
 
 
 // routes
