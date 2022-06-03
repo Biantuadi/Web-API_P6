@@ -6,7 +6,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(exppress.json());
 
-// connection à la base de données CE4MFtZ4kiF1JTH5
+// connection à la base de données mongoDB
 const mongooose = require("mongoose");
 const mongoURI = "mongodb+srv://kevin:CE4MFtZ4kiF1JTH5@cluster0.y0gnr7k.mongodb.net/?retryWrites=true&w=majority";
 mongooose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } )
