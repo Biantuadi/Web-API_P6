@@ -1,15 +1,18 @@
-const exppress = require("express");
-const app = exppress();
+const express = require("express");
+const app = express();
 const cors = require("cors");
+const path = require("path");
 
+// all stuff required
 const userRouter = require("./routes/user");
 const sauceRouter = require("./routes/sauce");
 
 // middleware
 app.use(cors());
-app.use(exppress.json());
+app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "images")));
 
-// connection à la base de données mongoDB
+// connection to db
 require("./database/mongoDB");
 
 // routes
