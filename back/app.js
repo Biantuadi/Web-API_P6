@@ -3,6 +3,7 @@ const app = exppress();
 const cors = require("cors");
 
 const userRouter = require("./routes/user");
+const sauceRouter = require("./routes/sauce");
 
 // middleware
 app.use(cors());
@@ -13,7 +14,7 @@ require("./database/mongoDB");
 
 // routes
 app.use("/api/auth", userRouter);
-// app.use("/api/sauces");
+app.use("/api/sauces", sauceRouter);
 
 // exportation du module
 module.exports = app;
