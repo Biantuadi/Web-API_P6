@@ -2,8 +2,8 @@ const express = require("express");
 const router = require("express").Router();
 
 const auth = require("../middleware/auth");
-const getAllSauces = require("../controllers/sauce");
+const sacueCtl = require("../controllers/sauce");
 
-router.get("/", auth, getAllSauces);
+router.get("/", auth, sacueCtl.getAllSauces);
 
 module.exports = router;
