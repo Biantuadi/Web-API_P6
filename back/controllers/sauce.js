@@ -30,17 +30,26 @@ exports.getOneSauce = (req, res) => {
 
 exports.updateSauce = (req, res) => {
   if (req.file != null) {
-    let filename = req.file.filename;
     let sauce = JSON.parse(req.body.sauce);
-    Thing.updateOne(
-      { _id: req.params.id },
-      {
-        ...sauce,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${filename}`,
-        _id: req.params.id,
-      }
-    )
-      .then(() => res.status(200).json({ message: "sauce updated!" }))
+
+    Thing.findOne({ _id: req.params.id })
+      .then((thing) => {
+        const filename = thing.imageUrl.split("/images/")[1];
+        fs.unlink(`images/${filename}`, () => {
+          Thing.findByIdAndUpdate(
+            req.params.id,
+            {
+              ...sauce,
+              imageUrl: `${req.protocol}://${req.get("host")}/images/${
+                req.file.filename
+              }`,
+              _id: req.params.id,
+            },
+          )
+            .then((thing) => res.status(200).json(thing))
+            .catch((error) => res.status(400).json({ error: error }));
+        });
+      })
       .catch((error) => res.status(400).json({ error: error }));
   } else {
     Thing.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
