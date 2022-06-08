@@ -1,7 +1,7 @@
 const Thing = require("../models/thing");
 const fs = require("fs");
-const { json } = require("express/lib/response");
 
+// Create a sauce
 exports.createSauce = (req, res) => {
   const sauce = JSON.parse(req.body.sauce);
 
@@ -22,12 +22,7 @@ exports.createSauce = (req, res) => {
     .catch((error) => res.status(400).json({ error: error }));
 };
 
-exports.getOneSauce = (req, res) => {
-  Thing.findById(req.params.id)
-    .then((thing) => res.status(200).json(thing))
-    .catch((error) => res.status(404).json({ error: error }));
-};
-
+// Update a sauce
 exports.updateSauce = (req, res) => {
   if (req.file != null) {
     let sauce = JSON.parse(req.body.sauce);
@@ -36,16 +31,13 @@ exports.updateSauce = (req, res) => {
       .then((thing) => {
         const filename = thing.imageUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
-          Thing.findByIdAndUpdate(
-            req.params.id,
-            {
-              ...sauce,
-              imageUrl: `${req.protocol}://${req.get("host")}/images/${
-                req.file.filename
-              }`,
-              _id: req.params.id,
-            },
-          )
+          Thing.findByIdAndUpdate(req.params.id, {
+            ...sauce,
+            imageUrl: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }`,
+            _id: req.params.id,
+          })
             .then((thing) => res.status(200).json(thing))
             .catch((error) => res.status(400).json({ error: error }));
         });
@@ -58,6 +50,7 @@ exports.updateSauce = (req, res) => {
   }
 };
 
+// Delete a sauce
 exports.deleteSauce = (req, res) => {
   Thing.findByIdAndDelete({ _id: req.params.id })
     .then((thing) => {
@@ -71,6 +64,14 @@ exports.deleteSauce = (req, res) => {
     .catch((error) => res.status(400).json({ error: error }));
 };
 
+// Get one sauce
+exports.getOneSauce = (req, res) => {
+  Thing.findById(req.params.id)
+    .then((thing) => res.status(200).json(thing))
+    .catch((error) => res.status(404).json({ error: error }));
+};
+
+// Get all sauces
 exports.getAllSauces = (req, res) => {
   Thing.find()
     .then((things) => res.status(200).json(things))

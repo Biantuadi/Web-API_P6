@@ -13,7 +13,7 @@ app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 // connection to db
-require("./database/mongoDB");
+require("./db/mongoDB");
 
 // routes
 app.use("/api/auth", userRouter);
