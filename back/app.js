@@ -17,7 +17,8 @@ require("./db/mongoDB");
 
 // routes
 app.use("/api/auth", userRouter);
-app.use("/api/sauces", sauceRouter);
+app.use("/api/sauces", sauceRouter); 
+
 
 // exportation du module
 module.exports = app;

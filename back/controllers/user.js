@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 exports.signup = (req, res) => {
   bcrypt
@@ -13,7 +14,11 @@ exports.signup = (req, res) => {
       user
         .save()
         .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch((error) => res.status(409).json({ massage: "Utilisateur pas enregistrer", error }) );
+        .catch((error) =>
+          res
+            .status(409)
+            .json({ massage: "Utilisateur pas enregistrer", error })
+        );
     })
     .catch((error) => res.status(500).json({ error }));
 };
